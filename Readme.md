@@ -1,9 +1,9 @@
-#Projeto da disciplina Redes de Computadores
+# Projeto da disciplina Redes de Computadores
 ---
 
 Repositório destinado ao código fonte.
 
 ---
-##Grupo:
+## Grupo:
 - Thiago Clemente
--Igor Vasconcelos
+- Igor Vasconcelos
