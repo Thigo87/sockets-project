@@ -1,4 +1,4 @@
-import socket
+from socket import *
 import threading
 import time
 #DEFINE n=500
