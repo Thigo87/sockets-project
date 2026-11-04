@@ -32,14 +32,9 @@ def win(board):
     diagonal1 = [board[0][0], board[1][1], board[2][2]]
     diagonal2 = [board[0][2], board[1][1], board[2][0]]
     
-    #ajustar só a verificação das colunas
     coluna0 = [board[0][0], board[1][0], board[2][0]]
-    coluna1 = [board[1][0], board[1][1], board[1][2]]
-    coluna2 = [board[2][0], board[2][1], board[2][2]]
-    
-    print(coluna0)
-    print(coluna1)
-    print(coluna2)
+    coluna1 = [board[0][1], board[1][1], board[2][1]]
+    coluna2 = [board[0][2], board[1][2], board[2][2]]
 
     if diagonal1 == ["O", "O", "O"] or diagonal2 == ["O", "O", "O"]:
         winner = ["O", True]
