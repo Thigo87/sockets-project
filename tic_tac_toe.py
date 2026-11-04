@@ -37,6 +37,10 @@ def win(board):
     coluna1 = [board[1][0], board[1][1], board[1][2]]
     coluna2 = [board[2][0], board[2][1], board[2][2]]
     
+    print(coluna0)
+    print(coluna1)
+    print(coluna2)
+
     if diagonal1 == ["O", "O", "O"] or diagonal2 == ["O", "O", "O"]:
         winner = ["O", True]
     elif diagonal1 == ["X", "X", "X"] or diagonal2 == ["X", "X", "X"]:    
@@ -97,15 +101,17 @@ def game(board, played):
         
         conclusion = win(board)
            
-        if not conclusion[1] and not tie(board):
-            game(board, player)
+        if not conclusion[1]:
+            if not tie(board):
+                game(board, player)
+            else:
+                print("IT'S A TIE!")
+
         else:
             subprocess.run('cls' if os.name == 'nt' else 'clear', shell=True)
             showBoard(board)
-            if not tie(board):
-                print(f"{conclusion[0]} wins!")
-            else:
-                print("IT'S A TIE!")
+            print(f"{conclusion[0]} wins!")
+                
         
 board = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
 start_piece = randint(0, 1)
