@@ -1,7 +1,7 @@
 from socket import *
 import threading
 
-server_port = 12000
+server_port = 12500
 
 serverUDP = socket(AF_INET, SOCK_DGRAM)
 
