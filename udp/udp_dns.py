@@ -1,7 +1,7 @@
 from socket import *
 import threading
 
-names = {"udpserver" : ["localhost", "12500"]}
+names = open("rooms.txt", "w+")
 
 serverName = "localhost"
 dnsPort = 12000

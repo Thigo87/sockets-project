@@ -4,9 +4,13 @@ serverName = "localhost"
 dns_server_port = 12000
 clientSocket = socket(AF_INET, SOCK_DGRAM)
 
-addr = input("Enter the address: ")
+option = input("Enter an option:\n[1] - Create a room\n[2] - Enter in a room\n[3] - Exit ")
 
-clientSocket.sendto(addr.encode(), (serverName, dns_server_port))
+while (addr != "1") or (addr != "2") or (addr != "3"):
+    print("Enter a valid option!")
+    addr = input("Enter an option:\n[1] - Create a room\n[2] - Enter in a room\n[3] - Exit ")
+
+clientSocket.sendto(option.encode(), (serverName, dns_server_port))
 response, serverAddress = clientSocket.recvfrom(2048)
 print(response.decode())
 
