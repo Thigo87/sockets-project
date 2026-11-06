@@ -42,7 +42,7 @@ def win(board):
         winner = ["X", True]
     
     if coluna0 == ["O", "O", "O"] or coluna1 == ["O", "O", "O"] or coluna2 == ["O", "O", "O"]:
-            winner = ["O", True]
+        winner = ["O", True]
     elif coluna0 == ["X", "X", "X"] or coluna1 == ["X", "X", "X"] or coluna2 == ["X", "X", "X"]:    
         winner = ["X", True]
             
@@ -118,3 +118,5 @@ else:
     print("'X' will start!")
     sleep(1.5)
     game(board, "O")
+
+#quando O ganha, não está finalizando
