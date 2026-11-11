@@ -1,6 +1,6 @@
 from socket import *
 import threading
-import json
+
 
 dados = {"as" : ["localhost", "12500"]}
 arquivo = open("./udp/rooms.json", "w")

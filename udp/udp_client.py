@@ -10,6 +10,12 @@ while (option != "1") and (option != "2") and (option != "3"):
     print("Enter a valid option!")
     option = input("Enter an option:\n[1] - Create a room\n[2] - Enter in a room\n[3] - Exit\n")
 
+if option == "1":
+    room_name = input("Enter the name of the room you want to create: ")
+    
+elif option == "2":
+    room_name = input("Enter the name of the room you want to join: ")
+
 clientSocket.sendto(option.encode(), (serverName, dns_server_port))
 response, serverAddress = clientSocket.recvfrom(2048)
 print(response.decode())

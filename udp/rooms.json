@@ -1,1 +1,10 @@
-{"as": ["localhost", "12500"]}
+{
+    "as": [
+        "localhost",
+        "12500"
+    ],
+    "test": [
+        "localhost",
+        "12500"
+    ]
+}
