@@ -6,5 +6,9 @@
     "teste": [
         "localhost",
         "49743"
+    ],
+    "SALATESTE": [
+        "localhost",
+        "50071"
     ]
 }
