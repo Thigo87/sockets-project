@@ -3,8 +3,6 @@ import threading
 from json_manipulation import *
 from random import randint
 
-names = {'1' : ['localhost', '12500']}
-
 serverName = "localhost"
 dnsPort = 12000
 dnsSocket = socket(AF_INET, SOCK_DGRAM)
@@ -25,27 +23,22 @@ print(room_name, option)
 
 return_msg = ""
 
-if room_name not in rooms:
-    if option == "1":
-        port = randint(10000, 99999)
+if option == "1":
+    if room_name not in rooms:
+        port = randint(10000, 65535)
         while port in used_ports:
             port = randint(10000, 99999)
         add_data({room_name : ["localhost", str(port)]})
-
-else:
-    if option == "2":
-        pass
+        return_msg = f"localhost:{port}"
     else:
-        return_msg = "This room already exists!"
+        return_msg = "This room already exists!:0"
 
-#ajustar o retorno pro client
+elif option == "2":
+    if room_name not in rooms:
+        return_msg = "This room doesn't exists!:0"
+    else:
+        return_msg = f"{rooms[room_name][0]}:{rooms[room_name][1]}"
 
-#print(f"Received name: {name}\nFrom: {returnAddr[0]}:{returnAddr[1]}")
-#ipAddr = ""
-#for n in names:
-#    if n == name:
-#        ipAddr = names[n][0] + ":" + names[n][1]
-#print(f"Returning address {ipAddr} for {name} to {returnAddr[0]}:{returnAddr[1]}")
 dnsSocket.sendto(return_msg.encode(), returnAddr)
 
 dnsSocket.close()
