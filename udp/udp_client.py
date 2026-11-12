@@ -1,7 +1,7 @@
 from socket import *
 
 serverName = "localhost"
-dns_server_port = 12000
+dns_server_port = 10000
 clientSocket = socket(AF_INET, SOCK_DGRAM)
 
 option = input("[1] - Create a room\n[2] - Enter in a room\n[3] - Exit\nEnter an option: ")

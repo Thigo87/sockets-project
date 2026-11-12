@@ -4,7 +4,7 @@ from json_manipulation import *
 from random import randint
 
 serverName = "localhost"
-dnsPort = 12000
+dnsPort = 10000
 dnsSocket = socket(AF_INET, SOCK_DGRAM)
 
 dnsSocket.bind(("", dnsPort))
@@ -25,9 +25,9 @@ return_msg = ""
 
 if option == "1":
     if room_name not in rooms:
-        port = randint(10000, 65535)
+        port = randint(10002, 65535)
         while port in used_ports:
-            port = randint(10000, 99999)
+            port = randint(10002, 99999)
         add_data({room_name : ["localhost", str(port)]})
         return_msg = f"localhost:{port}"
     else:

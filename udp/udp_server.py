@@ -21,3 +21,5 @@ def receive_connection(port):
 for room in rooms:
     t = threading.Thread(target=receive_connection, args=(int(rooms[room][1]),))
     t.start()
+
+#ajustar pra atualizar as salas disponíveis em tempo real
