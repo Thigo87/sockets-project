@@ -3,28 +3,37 @@ import threading
 import time
 #DEFINE n=500
 
-def escuta_tcp(ip,porta):
-    s=socket(AF_INET,SOCK_STREAM)
-    s.connect((ip,porta))
-    reposta=s.recv(n)
+def escuta_tcp(sock,estado):
     
-    while(reposta.decode()!="fim"):
-        print(reposta.decode())
-        reposta=s.recv(n) #talvez mandar pro txt
-    #avisa pro que acabou o jogo no txt e fecha a conexao
+    while(not estado["fim"]):
+        resposta=se.recv(n)
+        resposta = se.recv(n)                       
+        campos = resposta.decode().strip().split(" ; ")
+
+        tipo = campos[0]
+        if tipo == "TABULEIRO":
+            estado["jogo"] = campos[1]
+            estado["simbolo"] = campos[2]
+        elif tipo == "ERRO":
+            print(campos[1])
+        
+    
     s.close()
 
-def tcp_client():
-    ip=input("Digite o IP do servidor: ")
-    porta=int(input("Digite a porta do servidor: "))
-    t1=threading.Thread(target=escuta_tcp,args=(ip,porta))
-    t1.start()
-    time.sleep(1)
-    se=socket(AF_INET,SOCK_STREAM)
-    se.connect((ip,porta))
-    sala=input("Digite a sala que deseja entrar: ")
-    se.send(sala.encode())
-    #inicia a funçao do jogo t2 que le o txt para prencher e faz envios quando for a vez 
-    #t1.join()
-    # t2..join  
-    
+(estado = {"id": "", "simbolo": ""})
+
+time.sleep(1)
+se=socket(AF_INET,SOCK_STREAM)
+se.connect((ip,porta))
+se.send(f"ENTRAR ; {sala}\n".encode())
+resposta=se.recv(n)
+resposta = se.recv(n)                       
+campos = resposta.decode().strip().split(" ; ")
+# campos == ["BEMVINDO", "4821", "X"]
+tipo = campos[0]
+if tipo == "BEMVINDO":
+    estado["id"] = campos[1]
+    estado["simbolo"] = campos[2]
+elif tipo == "ERRO":
+    print(campos[1])
+    se.close()
