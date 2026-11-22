@@ -2,7 +2,6 @@ import json
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent #actual base directory
-ROOMS_FILE = BASE_DIR / "rooms.json"
 
 def file_path(filename): #function to return the path of a file
     return BASE_DIR / filename
