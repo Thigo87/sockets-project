@@ -17,7 +17,7 @@ def add_data(data, filename): #function to add data to a json file
             json.dump(existing_data, file, ensure_ascii=False, indent=4)
 
         return True
-    except Exception as e:
+    except Exception as e: 
         print(f"Error: {e}")
         return False
 

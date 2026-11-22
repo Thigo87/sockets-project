@@ -12,7 +12,7 @@ def connection():
     msg, returnAddr = dnsSocket.recvfrom(2048)
     print(f"Connected to: {returnAddr[0]}:{returnAddr[1]}")
     msg = msg.decode()
-    rooms = read_data()
+    rooms = read_data("rooms.json")
     used_ports = []
 
     for room in rooms:
@@ -26,8 +26,8 @@ def connection():
         if room_name not in rooms:
             port = randint(10002, 65535)
             while port in used_ports:
-                port = randint(10002, 99999)
-            add_data({room_name : ["localhost", str(port)]})
+                port = randint(10002, 65535)
+            add_data({room_name : ["localhost", str(port)]}, "rooms.json")
             return_msg = f"localhost:{port}"
         else:
             return_msg = "This room already exists!:0"

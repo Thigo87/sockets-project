@@ -10,5 +10,13 @@
     "SALATESTE": [
         "localhost",
         "50071"
+    ],
+    "room4": [
+        "localhost",
+        "11351"
+    ],
+    "atualizacao": [
+        "localhost",
+        "33524"
     ]
 }

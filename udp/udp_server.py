@@ -3,7 +3,7 @@ import threading
 from json_manipulation import *
 import time
 
-rooms = read_data()
+rooms = read_data("rooms.json")
 
 def receive_connection(port):
     serverUDP = socket(AF_INET, SOCK_DGRAM)
