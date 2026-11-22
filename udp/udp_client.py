@@ -2,9 +2,10 @@ from socket import *
 
 serverName = "localhost"
 dns_server_port = 10000
-clientSocket = socket(AF_INET, SOCK_DGRAM)
+
 
 while True:
+    clientSocket = socket(AF_INET, SOCK_DGRAM)
     option = input("Enter an option:\n[1] - Create a room\n[2] - Enter in a room\n[3] - View available rooms\n[4] - Exit\nEnter an option: ")
 
     while (option != "1") and (option != "2") and (option != "3") and (option != "4"):

@@ -3,10 +3,20 @@ import threading
 from json_manipulation import *
 from time import sleep
 
+data = ""
+
 def read(file):
+    global data
     while True:
-        print(read_data(file))
+        data = read_data(file)
         sleep(1)
 
-t = threading.Thread(target=read, args=("rooms.json",))
-t.start()
+def write():
+    print(data)
+
+t1 = threading.Thread(target=read, args=("rooms.json",))
+t1.start()
+
+while True:
+    write()
+    sleep(1)
