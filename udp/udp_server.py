@@ -2,10 +2,12 @@ from socket import *
 import threading
 from json_manipulation import *
 from time import sleep, localtime
+from tic_tac_toe import *
+
+board = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
 
 rooms = {}
 active_ports = set()
-
 
 def receive_connection(port):
     serverUDP = socket(AF_INET, SOCK_DGRAM)

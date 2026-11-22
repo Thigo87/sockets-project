@@ -106,17 +106,16 @@ def game(board, played):
             subprocess.run('cls' if os.name == 'nt' else 'clear', shell=True)
             showBoard(board)
             print(f"{conclusion[0]} wins!")
-                
-        
-board = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
-start_piece = randint(0, 1)
-if start_piece == 0:
-    print("'O' will start!")
-    sleep(1.5)
-    game(board, "X")
-else:
-    print("'X' will start!")
-    sleep(1.5)
-    game(board, "O")
 
-#quando O ganha, não está finalizando
+def start_piece():
+    return randint(0, 1)
+            
+def main(board, start_piece):     
+    if start_piece == 0:
+        print("'O' will start!")
+        sleep(1.5)
+        game(board, "X")
+    else:
+        print("'X' will start!")
+        sleep(1.5)
+        game(board, "O")
