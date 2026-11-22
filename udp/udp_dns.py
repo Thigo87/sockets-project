@@ -41,10 +41,17 @@ def connection():
     elif option == "3":
         available_rooms = ""
 
-        for r in read_data():
+        for r in read_data("rooms.json"):
             available_rooms += f"{r} : "
 
         return_msg = available_rooms[:(len(available_rooms) - 3)]
+        
+    elif option == "4":
+        if room_name not in rooms:
+            return_msg = "This room doesn't exists!:0"
+        else:
+            remove_data(room_name, "rooms.json")
+            return_msg = f"Room {room_name} deleted successfully!:0"
 
     print(f"Message sent => {return_msg}")
     dnsSocket.sendto(return_msg.encode(), returnAddr)
