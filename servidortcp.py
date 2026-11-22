@@ -4,7 +4,7 @@ from random import randint
 from clienttcp import recebe_linha
 
 #estado de todas as salas abertas neste servidor
-#salas["sala1"]={"tabuleiro":"123456789","vez":"X","jogadores":{id:{...}}}
+#salas["sala1"]={"tabuleiro":"123456789","vez":"X","jogadores":{id:{...}},"trava":Lock}
 salas={}
 
 def novo_id(sala):
@@ -12,6 +12,20 @@ def novo_id(sala):
     while id_jogador in sala["jogadores"]:
         id_jogador=str(randint(1000,9999))
     return id_jogador
+
+def enviar_um(sala,jogador,mensagem):
+    #manda uma mensagem tcp para um jogador so (ex: INVALIDA)
+    with sala["trava"]:
+        jogador["socket"].sendall(f"{mensagem}\n".encode())
+
+def enviar_todos(sala,mensagem):
+    #manda a mesma mensagem tcp para todos os jogadores da sala (ex: TABULEIRO, FIM)
+    with sala["trava"]:
+        for jogador in sala["jogadores"].values():
+            jogador["socket"].sendall(f"{mensagem}\n".encode())
+
+def mensagem_tabuleiro(sala):
+    return f"TABULEIRO ; {sala['tabuleiro']} ; {sala['vez']}"
 
 def recusa(conn,motivo):
     conn.sendall(f"ERRO ; {motivo}\n".encode())
@@ -43,8 +57,13 @@ def aceita_jogadores(sock_tcp,nome,sala):
         conn.sendall(f"BEMVINDO ; {id_jogador} ; {jogador['simbolo']}\n".encode())
         print(f"{id_jogador} entrou na {nome} como {jogador['simbolo']}")
 
+        if len(sala["jogadores"])==2:
+            print(f"Sala {nome} cheia, comecando o jogo")
+            enviar_todos(sala,mensagem_tabuleiro(sala))
+
 def abre_sala(nome,porta):
-    sala={"tabuleiro":"123456789","vez":"X","jogadores":{}}
+    #a trava evita que duas threads escrevam no mesmo socket ao mesmo tempo
+    sala={"tabuleiro":"123456789","vez":"X","jogadores":{},"trava":threading.Lock()}
     salas[nome]=sala
 
     sock_tcp=socket(AF_INET,SOCK_STREAM)
