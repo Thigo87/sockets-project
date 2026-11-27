@@ -14,10 +14,43 @@ def showBoard(board):
                 line_to_present += f" {item} |"
             else:
                 line_to_present += f" {item}"
+
         print(line_to_present)
         counter += 1
+    if counter < 3:
+        print("------------")
+
+def formatBoard(board):
+    lines = []
+    counter = 0
+    for line in board:
+        actual_line = ""
+        counter2 = 0
+        for item in line:
+            counter2 += 1
+            if counter2 < 3:
+                actual_line += f" {item} |"
+            else:
+                actual_line += f" {item}"
+
+        lines.append(actual_line)
+        counter += 1
         if counter < 3:
-            print("------------")
+            lines.append("------------")
+
+    return "\n".join(lines)
+
+def playerMove(board, position, piece):
+    if not position.isnumeric():
+        return False
+    
+    for i in range(3):
+        for j in range(3):
+            if board[i][j] == position:
+                board[i][j] = piece
+                return True
+
+    return False
 
 def win(board):
     winner = ["", False]

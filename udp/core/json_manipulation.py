@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent #actual base directory
+BASE_DIR = Path(__file__).resolve().parent.parent / "data" #data directory
 
 def file_path(filename): #function to return the path of a file
     return BASE_DIR / filename
@@ -17,6 +17,7 @@ def add_data(data, filename): #function to add data to a json file
             json.dump(existing_data, file, ensure_ascii=False, indent=4)
 
         return True
+    
     except Exception as e: 
         print(f"Error: {e}")
         return False
@@ -25,9 +26,12 @@ def read_data(filename): #function to read data from a json file
     try:
         with open(file_path(filename), "r", encoding="utf-8") as file:
             existing_data = json.load(file)
+
         return existing_data
+    
     except Exception as e:
         print(f"Error: {e}")
+
         return None
 
 def remove_data(key, filename): #function to remove data from a json file
@@ -41,8 +45,10 @@ def remove_data(key, filename): #function to remove data from a json file
             json.dump(existing_data, file, ensure_ascii=False, indent=4)
 
         return True
+    
     except Exception as e:
         print(f"Error: {e}")
+        
         return False
 
 

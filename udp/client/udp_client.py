@@ -4,7 +4,27 @@ from time import sleep
 serverName = "localhost"
 dns_server_port = 10000
 
+def play_game(clientSocket, room_address):
+    clientSocket.settimeout(None)
+    while True:
+        response, _ = clientSocket.recvfrom(2048)
+        msg_received = response.decode()
 
+        if msg_received.startswith("TURN:"):
+            prompt = msg_received.replace("TURN:", "", 1)
+            move = input(prompt)
+            clientSocket.sendto(move.encode(), room_address)
+
+        elif msg_received.startswith("WAIT:"):
+            print(msg_received.replace("WAIT:", "", 1))
+
+        elif msg_received.startswith("END:"):
+            print(msg_received.replace("END:", "", 1))
+            break
+
+        else:
+            print(msg_received)
+        
 while True:
     clientSocket = socket(AF_INET, SOCK_DGRAM)
     option = input("Enter an option:\n[1] - Create a room\n[2] - Enter in a room\n[3] - View available rooms\n[4] - Delete a room\n[5] - Exit\nEnter an option: ")
@@ -40,15 +60,28 @@ while True:
                                
                 clientSocket.settimeout(1)
                 connected = False
+                room_address = (ipAddr[0], ipAddr[1])
                 
                 for _ in range(3):
                     try:
-                        clientSocket.sendto("Hello".encode(), (ipAddr[0], ipAddr[1]))
+                        clientSocket.sendto("Hello".encode(), room_address)
                         response, serverAddress = clientSocket.recvfrom(2048)
-                        print(response.decode())
+                        first_msg = response.decode()
+
+                        if first_msg.startswith("FULL:"):
+                            print(first_msg.replace("FULL:", "", 1))
+                        
+                        elif first_msg.startswith("TURN:"):
+                            move = input(first_msg.replace("TURN:", "", 1))
+                            clientSocket.sendto(move.encode(), room_address)                            
+
+                        elif first_msg.startswith("WAIT:"):
+                            print(first_msg.replace("WAIT:", "", 1))
+                            play_game(clientSocket, room_address)
+
                         connected = True
                         break
-                    
+
                     except (ConnectionResetError, TimeoutError):
                         sleep(0.3)
                         

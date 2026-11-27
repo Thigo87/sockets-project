@@ -1,7 +1,7 @@
 from socket import *
 import threading
-from json_manipulation import *
 from random import randint
+from core.json_manipulation import *
 
 def connection():
     dnsPort = 10000

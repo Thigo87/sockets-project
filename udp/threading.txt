@@ -1,3 +1,0 @@
-basicamente a thread vai rodar para cada momento no servidor;
-uma thread para ficar escutando (bind);
-uma thread pra cada jogo;
